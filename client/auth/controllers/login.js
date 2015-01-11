@@ -1,10 +1,9 @@
 'use strict';
 
-var _ = require('lodash');
-
-module.exports = function LoginCtrl() {
+module.exports = function LoginCtrl(login) {
   this.submit = function(data) {
-    data = _.pick(data, ['email', 'password']);
-    console.log('login', data);
+    login.attempt(data).then(function(response) {
+      console.log('success', response);
+    });
   };
 };
