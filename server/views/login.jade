@@ -17,4 +17,4 @@ block content
         required
         ng-model='data.password'
       )
-      +submit('Login')
+      +submit('Login')(ng-disabled='login.submitting')

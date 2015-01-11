@@ -23,4 +23,4 @@ block content
         ng-model='data.confirmPassword'
         confirm-password='data.password'
       )
-      +submit('Sign up')
+      +submit('Sign up')(ng-disabled='signup.submitting')
