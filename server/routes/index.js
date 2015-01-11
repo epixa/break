@@ -1,13 +1,13 @@
 'use strict';
 
 var express = require('express');
-var router = express.Router();
+module.exports = exports = express.Router();
 
-router.get('/', function(req, res) {
+exports.get('/', function(req, res) {
   res.render('index', { title: 'Break' });
 });
 
-router.route('/signup')
+exports.route('/signup')
   .get(function(req, res) {
     res.render('signup', { title: 'Signup' });
   })
@@ -15,12 +15,10 @@ router.route('/signup')
     res.json(req.body);
   });
 
-router.route('/login')
+exports.route('/login')
   .get(function(req, res) {
     res.render('login', { title: 'Login' });
   })
   .post(function(req, res) {
     res.json(req.body);
   });
-
-module.exports = router;
