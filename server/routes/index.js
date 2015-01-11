@@ -15,4 +15,12 @@ router.route('/signup')
     res.json(req.body);
   });
 
+router.route('/login')
+  .get(function(req, res) {
+    res.render('login', { title: 'Login' });
+  })
+  .post(function(req, res) {
+    res.json(req.body);
+  });
+
 module.exports = router;
