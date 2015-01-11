@@ -1,0 +1,22 @@
+mixin form()
+  form(novalidate)&attributes(attributes)
+    block
+
+mixin field(label, type)
+  - type || (type = 'text')
+  label= label
+    input(type=type)&attributes(attributes)
+
+mixin email(label)
+  - label || (label = 'Email')
+  - attributes.name || (attributes.name = 'email');
+  +field(label, 'email')&attributes(attributes)
+
+mixin password(label, name)
+  - label || (label = 'Password')
+  - attributes.name || (attributes.name = 'password');
+  +field(label, 'password')&attributes(attributes)
+
+mixin submit(label, click)
+  - label || (label = 'Submit')
+  button(type='submit')&attributes(attributes)= label

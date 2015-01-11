@@ -1,0 +1,14 @@
+extends layouts/main
+
+include mixins/assets.jade
+include mixins/forms.jade
+
+block content
+  section(ng-controller='SignupCtrl as signup')
+    h1= title
+    p Sign up for a new account
+    +form(name='form')
+      +email(ng-model='signup.data.email')
+      +password(ng-model='signup.data.password')
+      +password('Confirm Password')(name='confirm_password', ng-model='signup.data.confirmPassword')
+      +submit('Sign up')(ng-click='signup.submit(signup.data)')
