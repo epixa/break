@@ -13,6 +13,8 @@ mixin field(label, type)
     input(type=type)&attributes(attributes)
     if attributes.required
       +error(elm + '.$error.required && (' + elm + '.$dirty || form.submitted)') #{label} is required
+    if attributes.minlength
+      +error('form.' + attributes.name + '.$error.minlength') #{label} must be at least #{attributes.minlength} characters
     block
 
 mixin email(label)
@@ -28,7 +30,6 @@ mixin password(label)
   - attributes.name || (attributes.name = 'password');
   - attributes['ng-model-options'] = "{ updateOn: 'blur' }";
   +field(label, 'password')&attributes(attributes)
-    +error('form.' + attributes.name + '.$error.minlength') Passwords must be at least 8 characters
     block
 
 mixin confirmPassword(label)
