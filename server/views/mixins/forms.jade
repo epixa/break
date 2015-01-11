@@ -1,22 +1,48 @@
 mixin form()
-  form(novalidate)&attributes(attributes)
+  form(name='form', novalidate)&attributes(attributes)
+    block
+
+mixin error(condition)
+  div(ng-if!=condition)
     block
 
 mixin field(label, type)
   - type || (type = 'text')
+  - var elm = 'form.' + attributes.name;
   label= label
     input(type=type)&attributes(attributes)
+    if attributes.required
+      +error(elm + '.$error.required && (' + elm + '.$dirty || form.submitted)') #{label} is required
+    block
 
 mixin email(label)
   - label || (label = 'Email')
   - attributes.name || (attributes.name = 'email');
+  - attributes['ng-model-options'] = "{ updateOn: 'blur' }";
   +field(label, 'email')&attributes(attributes)
+    +error('form.' + attributes.name + '.$error.email') Invalid email
+    block
 
-mixin password(label, name)
+mixin password(label)
   - label || (label = 'Password')
   - attributes.name || (attributes.name = 'password');
+  - attributes['ng-model-options'] = "{ updateOn: 'blur' }";
   +field(label, 'password')&attributes(attributes)
+    +error('form.' + attributes.name + '.$error.minlength') Passwords must be at least 8 characters
+    block
+
+mixin confirmPassword(label)
+  - label || (label = 'Confirm Password')
+  - attributes.name || (attributes.name = 'confirmPassword');
+  - attributes['ng-model-options'] = "{ updateOn: 'blur' }";
+  +field(label, 'password')&attributes(attributes)
+    +error('form.confirmPassword.$error.confirmPassword') Password does not match
+    block
 
 mixin submit(label, click)
   - label || (label = 'Submit')
-  button(type='submit')&attributes(attributes)= label
+  button(
+    type='submit'
+    ng-click='form.submitted=true'
+  )&attributes(attributes)= label
+    block
