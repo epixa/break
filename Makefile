@@ -2,7 +2,7 @@
 
 all:
 	npm install
-	mkdir build
+	mkdir -p build
 
 clean:
 	rm -rf node_modules
