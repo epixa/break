@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = function SignupCtrl(signup) {
+module.exports = function SignupCtrl($window, signup) {
   this.submit = function(data) {
     this.submitting = true;
     signup.attempt(data).then(success, error);
   };
 
   var success = function(data) {
-    console.log('success', data);
+    $window.location = '/login';
   };
 
   var error = function(response) {
