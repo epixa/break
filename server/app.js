@@ -9,7 +9,9 @@ var bodyParser = require('body-parser');
 var nconf = require('nconf');
 var Promise = require('bluebird');
 var _ = require('lodash');
+
 var NotFound = require('./lib/errors').NotFound;
+var sessions = require('./lib/sessions');
 
 var app = express();
 
@@ -46,6 +48,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(sessions(nconf.get('session')));
 
 app.use('/', routes);
 app.use('/users', users);

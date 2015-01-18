@@ -1,0 +1,10 @@
+doctype html
+html
+  head
+    title Logging out...
+  body
+    form(method="POST", action="/logout", id="logout", name="logout")
+      input(type="submit" value="Log out", id="btn")
+    script.
+      document.getElementById('btn').style.display = 'none';
+      document.getElementById('logout').submit();

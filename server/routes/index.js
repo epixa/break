@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var _ = require('lodash');
 var users = require('../lib/users');
 var InvalidArg = require('../lib/errors').InvalidArg;
 var AuthError = require('../lib/errors').AuthError;
@@ -33,9 +34,31 @@ exports.route('/login')
     if (!req.body.password) throw new InvalidArg('Password is required');
     req.promise = users.authenticate(req.body.email, req.body.password)
       .then(function(user) {
-        res.status(200).json(user);
+        req.session.user = _.pick(user, ['id', 'email']);
+        res.status(201).json({
+          sid: req.session.id,
+          user: req.session.user
+        });
       })
       .catch(AuthError, function(err) {
         next(new NotFound('No user found with those credentials'));
       });
+  });
+
+exports.route('/logout')
+  .get(function(req, res) {
+    res.render('logout');
+  })
+  .post(function(req, res, next) {
+    req.session.destroy(function(err) {
+      if (err) return next(err);
+      res.format({
+        html: function() {
+          res.redirect('/login');
+        },
+        json: function() {
+          res.status(204).end();
+        }
+      });
+    });
   });
