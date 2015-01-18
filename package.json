@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "watchify": "watchify client/app.js -o build/break.js -v",
     "browserify": "browserify client/app.js -o build/break.js",
-    "dev": "npm run watchify & nodemon --watch server --watch node_modules ./bin/www"
+    "dev": "npm run watchify & nodemon --watch server --watch node_modules --watch config ./bin/www"
   },
   "dependencies": {
     "bcrypt": "~0.8.x",
