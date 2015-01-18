@@ -17,9 +17,12 @@
     "express": "~4.10.6",
     "jade": "~1.8.2",
     "lodash": "~2.4.1",
-    "mongodb": "~2.0.13",
     "morgan": "~1.5.1",
     "nconf": "~0.7.1",
+    "pg": "^4.2.0",
+    "pg-native": "^1.7.3",
+    "sequelize": "^2.0.0-rc7",
+    "sequelize-cli": "^1.0.4",
     "serve-favicon": "~2.2.0"
   },
   "devDependencies": {

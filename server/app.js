@@ -12,20 +12,20 @@ var _ = require('lodash');
 var NotFound = require('./lib/errors').NotFound;
 
 var app = express();
-if (app.get('env') === 'development') {
-  Promise.longStackTraces();
-}
 
 nconf
   .env()
   .argv()
-  .defaults(require(path.join(__dirname, '..', 'config', 'server.js')));
+  .defaults(require('../config'));
+
+if (app.get('env') === 'development') {
+  Promise.longStackTraces();
+  var db = require('./models');
+  db.Sequelize.Promise.longStackTraces();
+}
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-
-// start connecting to database
-require('./db');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

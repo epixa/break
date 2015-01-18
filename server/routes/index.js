@@ -1,7 +1,7 @@
 'use strict';
 
 var express = require('express');
-var users = require('../middleware/users');
+var users = require('../lib/users');
 var InvalidArg = require('../lib/errors').InvalidArg;
 var AuthError = require('../lib/errors').AuthError;
 var NotFound = require('../lib/errors').NotFound;
@@ -16,10 +16,10 @@ exports.route('/signup')
   .get(function(req, res) {
     res.render('signup', { title: 'Signup' });
   })
-  .post(users, function(req, res, next) {
+  .post(function(req, res, next) {
     if (!req.body.email) throw new InvalidArg('Email is required');
     if (!req.body.password) throw new InvalidArg('Password is required');
-    req.users.create(req.body).then(function(user) {
+    users.create(req.body).then(function(user) {
       res.status(201).json(user);
     }).catch(next);
   });
@@ -28,10 +28,10 @@ exports.route('/login')
   .get(function(req, res) {
     res.render('login', { title: 'Login' });
   })
-  .post(users, function(req, res, next) {
+  .post(function(req, res, next) {
     if (!req.body.email) throw new InvalidArg('Email is required');
     if (!req.body.password) throw new InvalidArg('Password is required');
-    req.promise = req.users.authenticate(req.body.email, req.body.password)
+    req.promise = users.authenticate(req.body.email, req.body.password)
       .then(function(user) {
         res.status(200).json(user);
       })

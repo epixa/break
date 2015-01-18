@@ -6,6 +6,7 @@ Encourage healthy time off for unlimited vacation policies
 
 ```sh
 make
+node_modules/.bin/sequelize db:migrate
 ```
 
 ### Run standalone
