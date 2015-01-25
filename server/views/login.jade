@@ -8,6 +8,7 @@ block content
     h1= title
     p Log into an existing account.
     p Don't have an account? #[a(href='/signup') Sign up] instead.
+    p Forgot your password? #[a(href='/reset-password') Reset] it.
     +form()(ng-submit!='form.$valid && login.submit(data)')
       +email()(
         required
